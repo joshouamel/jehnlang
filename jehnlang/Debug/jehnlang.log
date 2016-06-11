@@ -1,0 +1,28 @@
+﻿  main.cpp
+  group.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(15): error C2146: syntax error: missing ';' before identifier 'Int'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(16): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(16): error C2371: 'nativegroup': redefinition; different basic types
+  c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(15): note: see declaration of 'nativegroup'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(16): error C2146: syntax error: missing ';' before identifier 'Float'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(9): error C2059: syntax error: '>'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(9): error C2976: 'std::list': too few template arguments
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(10): error C2923: 'std::shared_ptr': 'group' is not a valid template type argument for parameter '_Ty'
+  c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(4): note: see declaration of 'group'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(10): error C3203: 'shared_ptr': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(12): error C2923: 'std::shared_ptr': 'group' is not a valid template type argument for parameter '_Ty'
+  c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(4): note: see declaration of 'group'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(12): error C2061: syntax error: identifier 'group'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\collector.h(13): error C2061: syntax error: identifier 'group'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(8): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(8): error C2371: 'nativegroup': redefinition; different basic types
+  c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(15): note: see declaration of 'nativegroup'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(8): error C2146: syntax error: missing ';' before identifier 'Int'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(9): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(9): error C2371: 'nativegroup': redefinition; different basic types
+  c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.h(15): note: see declaration of 'nativegroup'
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\group.cpp(9): error C2146: syntax error: missing ';' before identifier 'Float'
+  argfunc.cpp
+  Generating Code...
