@@ -2,45 +2,57 @@
 
 func::func(int argnum):argnum(argnum){}
 
-argumentfunction::argumentfunction(int i):func(i),arglst(i,nullptr)
+argumentfunction::argumentfunction(int i):func(i)
 {
 	for (int j = 0; j < i; j++)
-		arglst[i] = shared_ptr<stackedreferenceArgumentFunction>(new stackedreferenceArgumentFunction());
+		arglst.push_back( shared_ptr<stackedreferenceArgumentFunction>(new stackedreferenceArgumentFunction()));
 }
 
-shared_ptr<stackedreferenceArgumentFunction> argumentfunction::arg(int i)
+Object_ptr argumentfunction::inputArgument(std::vector<Object_ptr>& v)
 {
-	if (i < argnum)
-		return arglst[i];
-	else nullptr;
-}
-
-shared_ptr<Object> argumentfunction::inputArgument(std::vector<shared_ptr<Object>>& v)
-{
+	std::vector<Object_ptr> vt;
 	for (int i = 0; i < argnum; i++) {
-		arglst[i]->v.push(v[i]);
+		vt.push_back(getObject(v[i]));
 	}
-	shared_ptr<Object> base = targ;
-	while (base&&dynamic_cast<noArgumentFunction*>(base.get()))
-		base = ((noArgumentFunction*)base.get())->calc();
-
+	for (int i = 0; i < argnum; i++) {
+		arglst[i]->v.push(vt[i]);
+	}
+	Object_ptr base = getObject(targ);
+	for (int i = 0; i < argnum; i++) {
+		arglst[i]->v.pop();
+	}
 	return base;
 }
 
-shared_ptr<Object> func_ptr::inputArgument(std::vector<shared_ptr<Object>>& v)
+Object_ptr func_ptr::inputArgument(std::vector<Object_ptr>& v)
 {
+	if (!this->get())
+		return nullptr;
 	if ((*this)->argnum < v.size()) return nullptr;
 	if ((*this)->argnum > v.size()) {
-		shared_ptr<argumentfunction> f(new argumentfunction(v.size() - (*this)->argnum));
+		argumentfunction* f(new argumentfunction((*this)->argnum-v.size()));
 		shared_ptr<unCalcedData> u(new unCalcedData());
-		u->basefunction = *this;
+		u->basefunction = Object_ptr(*this);
 		u->lst =v;
-		u->lst.reserve(f->argnum);
 		u->lst.insert(u->lst.end(), f->arglst.begin(), f->arglst.end());
-		f->targ = u;
-		return f;
+		f->targ = Object_ptr(u);
+		return func_ptr(shared_ptr<func>(f));
 	}
-	if ((*this)->argnum == v.size()) {
-		return (*this)->inputArgument(v);
-	}
+	return (*this)->inputArgument(v);
+
 }
+/*
+argumentrequiredfunction::argumentrequiredfunction(func_ptr basefunction,std::vector<Object_ptr>& v):func(basefunction->arg-v.size()),lst(v),basefunction(basefunction){}
+
+Object_ptr argumentrequiredfunction::inputArgument(std::vector<Object_ptr>&qlst)
+{
+	std::vector< Object_ptr> dlst = lst;
+	dlst.insert(dlst.end(),qlst.begin(), qlst.end());
+	Object_ptr base = getObject(basefunction);
+
+	if (!func_ptr(base))
+		return nullptr;
+
+	return ((func*)base.get())->inputArgument(dlst);
+}
+*/

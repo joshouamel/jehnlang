@@ -1,26 +1,25 @@
 #pragma once
 #include "Object.h"
-#include <vector>
 class noArgumentFunction :
 	public Object
 {
 public:
-	virtual shared_ptr<Object> calc()=0;
+	virtual Object_ptr calc()=0;
 };
 class unCalcedData :
 	public noArgumentFunction
 {
 protected:
 public:
-	shared_ptr<Object> basefunction;
-	std::vector< shared_ptr<Object>> lst;
-	shared_ptr<Object> calc();
+	Object_ptr basefunction;
+	std::vector< Object_ptr> lst;
+	Object_ptr calc();
 };
 class nativenoArgumentFunction :public noArgumentFunction {
-	shared_ptr<Object>(*calct)();
+	Object_ptr(*calct)();
 public:
-	nativenoArgumentFunction(shared_ptr<Object>(*calct)());
-	shared_ptr<Object> calc();
+	nativenoArgumentFunction(Object_ptr(*calct)());
+	Object_ptr calc();
 };
 class referenceArgumentFunction :public noArgumentFunction {
 	
@@ -28,6 +27,12 @@ class referenceArgumentFunction :public noArgumentFunction {
 #include <stack>
 class stackedreferenceArgumentFunction :public referenceArgumentFunction {
 public:
-	std::stack<shared_ptr<Object>> v;
-	shared_ptr<Object> calc();
+	std::stack<Object_ptr> v;
+	Object_ptr calc();
 };
+inline Object_ptr getObject(Object_ptr o) {
+	while (o&&dynamic_cast<noArgumentFunction*>(o.get())) {
+		o = dynamic_cast<noArgumentFunction*>(o.get())->calc();
+	}
+	return o;
+}

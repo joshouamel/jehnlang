@@ -1,5 +1,5 @@
 #pragma once
-#include "func.h"
+#include "nativefunction.h"
 class List :
 	public argumentfunction
 {
@@ -11,16 +11,27 @@ class Listc :
 	public List
 {
 protected:
-	shared_ptr<Object> l; shared_ptr<argumentfunction> i; shared_ptr<argumentfunction> o;
 public:
-	Listc( shared_ptr<Object> l, shared_ptr<argumentfunction> i, shared_ptr<argumentfunction> o);
+	Object_ptr l; Object_ptr i; Object_ptr o;
+	Listc(Object_ptr l, Object_ptr i);
+	Listc( Object_ptr l, Object_ptr i, Object_ptr o);
 };
 class dList :
 	public Listc
 {
-	shared_ptr<Object> len();
-	shared_ptr<Object> at(shared_ptr<Object>);
+	template<class S,class... T>
+	void push_back(S a,T... b) {
+		v.push_back(a);
+		push_back(b...);
+	}
+	template<class S>
+	void push_back(S a) {
+		v.push_back(a);
+	}
 public:
-	dList();
-	std::vector<shared_ptr<Object>> v;
+	template<class... T>
+		dList(T... k):dList() {
+			push_back(k...); };
+		dList();
+	std::vector<Object_ptr> v;
 };

@@ -146,11 +146,11 @@
     <ClCompile Include="group.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="nativeclass.cpp" />
     <ClCompile Include="nativefunction.cpp" />
     <ClCompile Include="noArgumentFunction.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="c++assist.h" />
     <ClInclude Include="collector.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="group.h" />

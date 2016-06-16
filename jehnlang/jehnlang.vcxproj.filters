@@ -33,9 +33,6 @@
     <ClCompile Include="nativefunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="nativeclass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="func.h">
@@ -60,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="nativeclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c++assist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,25 +1,30 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include "Object.h"
 #include "noArgumentFunction.h"
 class func :public Object {
 protected:
 	func(int);
 public:
 	int argnum;
-	virtual shared_ptr<Object> inputArgument(std::vector<shared_ptr<Object>>&)=0;
+	virtual Object_ptr inputArgument(std::vector<Object_ptr>&)=0;
 };
 class argumentfunction :public func {
 protected:
 public:
 	argumentfunction(int);
 	std::vector<shared_ptr<stackedreferenceArgumentFunction>> arglst;
-	shared_ptr<Object> targ;
-	shared_ptr<stackedreferenceArgumentFunction> arg(int);
-	shared_ptr<Object> inputArgument(std::vector<shared_ptr<Object>>&);
-};
+	Object_ptr targ;
+	Object_ptr inputArgument(std::vector<Object_ptr>&);
+};/*
+class argumentrequiredfunction:public func {
+public:
+	argumentrequiredfunction(func_ptr basefunction, std::vector<Object_ptr>& v);
+	Object_ptr basefunction;
+	std::vector< Object_ptr> lst;
+	Object_ptr inputArgument(std::vector<Object_ptr>&);
+};*/
 class func_ptr :public shared_ptr<func> {
 public:
-	shared_ptr<Object> inputArgument(std::vector<shared_ptr<Object>>&);
+	inline func_ptr(shared_ptr<func>&& a) :shared_ptr<func>(a) {}
+	inline func_ptr(Object_ptr a) : shared_ptr<func>(std::dynamic_pointer_cast<func>(a)) {}
+	Object_ptr inputArgument(std::vector<Object_ptr>&);
 };
