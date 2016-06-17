@@ -7,11 +7,17 @@ public:
 	int argnum;
 	virtual Object_ptr inputArgument(std::vector<Object_ptr>&)=0;
 };
+class forArgument :public Object {
+public:
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
+};
 class argumentfunction :public func {
 protected:
 public:
 	argumentfunction(int);
-	std::vector<shared_ptr<stackedreferenceArgumentFunction>> arglst;
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
+	std::vector<Object_ptr> arglst;
+	Object_ptr arg(int);
 	Object_ptr targ;
 	Object_ptr inputArgument(std::vector<Object_ptr>&);
 };/*

@@ -11,6 +11,7 @@ class unCalcedData :
 {
 protected:
 public:
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 	Object_ptr basefunction;
 	std::vector< Object_ptr> lst;
 	Object_ptr calc();
@@ -18,11 +19,12 @@ public:
 class nativenoArgumentFunction :public noArgumentFunction {
 	Object_ptr(*calct)();
 public:
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 	nativenoArgumentFunction(Object_ptr(*calct)());
 	Object_ptr calc();
 };
 class referenceArgumentFunction :public noArgumentFunction {
-	
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 };
 #include <stack>
 class stackedreferenceArgumentFunction :public referenceArgumentFunction {

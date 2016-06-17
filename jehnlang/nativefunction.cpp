@@ -6,6 +6,10 @@ Object_ptr nativefunction::inputArgument(std::vector<Object_ptr>& v)
 }
 
 nativefunction::nativefunction(int a, Object_ptr(*t)(std::vector<Object_ptr>&)):func(a),calc(t){}
+Object_ptr nativefunction::clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&)
+{
+	return nullptr;
+}
 #define nativetypeis(a,b) (!!(dynamic_cast<nativeclass<b>*>(a.get())))
 #define getnativevalue(a,b) ((nativeclass<b>*)a.get())->value
 
@@ -84,6 +88,21 @@ Object_ptr nativegt_f(std::vector<Object_ptr>& v) {
 func_ptr nativegt(shared_ptr<func>(new nativefunction(2, nativegt_f)));
 
 
+Object_ptr nativege_f(std::vector<Object_ptr>& v) {
+	Object_ptr a0 = getObject(v[0]);
+	Object_ptr a1 = getObject(v[1]);
+#define tmp(a,b) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
+	return toObject(getnativevalue(a0, a) >= getnativevalue(a1, b));
+	tmp(int, int);
+	tmp(double, int);
+	tmp(int, double);
+	tmp(double, double);
+#undef tmp
+	return nullptr;
+}
+func_ptr nativege(shared_ptr<func>(new nativefunction(2, nativege_f)));
+
+
 Object_ptr nativelt_f(std::vector<Object_ptr>& v) {
 	Object_ptr a0 = getObject(v[0]);
 	Object_ptr a1 = getObject(v[1]);
@@ -97,6 +116,21 @@ Object_ptr nativelt_f(std::vector<Object_ptr>& v) {
 	return nullptr;
 }
 func_ptr nativelt(shared_ptr<func>(new nativefunction(2, nativelt_f)));
+
+
+Object_ptr nativele_f(std::vector<Object_ptr>& v) {
+	Object_ptr a0 = getObject(v[0]);
+	Object_ptr a1 = getObject(v[1]);
+#define tmp(a,b) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
+	return toObject(getnativevalue(a0, a) <= getnativevalue(a1, b));
+	tmp(int, int);
+	tmp(double, int);
+	tmp(int, double);
+	tmp(double, double);
+#undef tmp
+	return nullptr;
+}
+func_ptr nativele(shared_ptr<func>(new nativefunction(2, nativele_f)));
 
 
 Object_ptr nativeequal_f(std::vector<Object_ptr>& v) {
@@ -144,10 +178,10 @@ func_ptr nativenot(shared_ptr<func>(new nativefunction(1, nativenot_f)));
 Object_ptr nativeand_f(std::vector<Object_ptr>& v) {
 	Object_ptr a0 = getObject(v[0]);
 	Object_ptr a1 = getObject(v[1]);
-#define tmp(a,b) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
-	return toObject(getnativevalue(a0, a) & getnativevalue(a1, b));
-	tmp(int, int);
-	tmp(bool, bool);
+#define tmp(a,b,c) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
+	return toObject(c(getnativevalue(a0, a) & getnativevalue(a1, b)));
+	tmp(int, int,int);
+	tmp(bool, bool,bool);
 #undef tmp
 	return nullptr;
 }
@@ -170,10 +204,10 @@ func_ptr nativeor(shared_ptr<func>(new nativefunction(2, nativeor_f)));
 Object_ptr nativexor_f(std::vector<Object_ptr>& v) {
 	Object_ptr a0 = getObject(v[0]);
 	Object_ptr a1 = getObject(v[1]);
-#define tmp(a,b) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
-	return toObject(getnativevalue(a0, a) ^ getnativevalue(a1, b));
-	tmp(int, int);
-	tmp(bool, bool);
+#define tmp(a,b,c) 	if (nativetypeis(a0, a)&nativetypeis(a1, b))\
+	return toObject(c(getnativevalue(a0, a) ^ getnativevalue(a1, b)));
+	tmp(int, int,int);
+	tmp(bool, bool,bool);
 #undef tmp
 	return nullptr;
 }
@@ -189,4 +223,4 @@ Object_ptr nativeif_f(std::vector<Object_ptr>& v) {
 	return nullptr;
 }
 
-func_ptr nativeif(shared_ptr<func>(new nativefunction(2, nativeif_f)));
+func_ptr nativeif(shared_ptr<func>(new nativefunction(3, nativeif_f)));

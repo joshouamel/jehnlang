@@ -17,7 +17,7 @@ forUsers void push_back(std::vector<Object_ptr>& v, S a) {
 class Object {
 public:
 	shared_ptr<group> g;
-	virtual shared_ptr<Object> a() { return nullptr; };
+	virtual Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&)=0;
 };
 class Object_ptr :public shared_ptr<Object> {
 public:
@@ -34,5 +34,16 @@ public:
 		push_back(u->lst,k...);
 		return Object_ptr((Object*)u);
 	}
-
+	inline Object_ptr clone(std::vector<Object_ptr>& v1, std::vector<Object_ptr>&v2) {
+		if (!*this)
+			return nullptr;
+		for (int i = 0; i < v1.size(); i++) {
+			if (v1[i] == *this)
+				return v2[i];
+		}
+		Object_ptr a = this->get()->clone(v1,v2);
+		if (a)
+			return a;
+		return *this;
+	}
 };

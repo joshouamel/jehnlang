@@ -1,26 +1,25 @@
 #include <iostream>
 #include "c++assist.h"
+void List_init();
+void Listc_init();
 using namespace std;
 void printObject(Object_ptr o) {
 	Object_ptr t=getObject(o);
 	
 }
 int fibb_c(int i) {
-	if (i-- == 0)
+	if (i == 0)
 		return 1;
-	if (i-- == 0)
+	if (i == 1)
 		return 1;
-	int a=1, b=2,c;
-	while (i--) {
-		c = b;
-		b += a;
-		a = c;
-	}
-	return b;
+	return fibb_c(i - 1) + fibb_c(i - 2);
 }
 int main() {
+	List_init();
+	Listc_init();
 	Object_ptr d = toObject(1);
-	Object_ptr k(new dList(toObject(1), toObject(5), toObject(9), toObject(3), toObject(7)));
+	Object_ptr k(dList(toObject(1), toObject(5), toObject(9), toObject(3), toObject(7)));
+	printObject(k(toObject(2)));
 	getObject(Object_ptr(nativeadd)(toObject(2))(toObject(3)));
 	argumentfunction* fibbf = new argumentfunction(1);
 	Object_ptr fibb(fibbf);
@@ -47,5 +46,4 @@ int main() {
 		cout << fibb_c(i) << endl;
 	}
 	printObject(fibb(toObject(10)));
-	printObject(k(toObject(3)));
 }

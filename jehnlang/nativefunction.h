@@ -7,6 +7,7 @@ protected:
 public:
 	Object_ptr inputArgument(std::vector<Object_ptr>&);
 	nativefunction(int, Object_ptr(*t)(std::vector<Object_ptr>&));
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 };
 extern func_ptr nativeadd;
 extern func_ptr nativesubtract;
@@ -14,6 +15,8 @@ extern func_ptr nativemultiply;
 extern func_ptr nativedivide;
 extern func_ptr nativegt;
 extern func_ptr nativelt;
+extern func_ptr nativege;
+extern func_ptr nativele;
 extern func_ptr nativeequal;
 extern func_ptr nativenotequal;
 extern func_ptr nativenot;
