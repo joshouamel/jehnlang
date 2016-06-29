@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="nativefunction.cpp" />
     <ClCompile Include="noArgumentFunction.cpp" />
+    <ClCompile Include="paternedfunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="c++assist.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="nativefunction.h" />
     <ClInclude Include="noArgumentFunction.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="patternedfunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

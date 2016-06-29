@@ -1,55 +1,59 @@
 #include "c++assist.h"
 
 Object_ptr List;
+Object_ptr Listc;
+#ifdef OPT
+Object_ptr List_init_sub(std::vector<Object_ptr>& v) {
+	Object_ptr p = getObject(v[3]);
+	int k = getnativevalue(p, int);
+	if (getnativevalue(getObject(inputArgument(v[2],p)),bool)&& k>= 0) {
+		return v[1](p);
+	}
+	return nullptr;
+}
 void List_init() {
-	argumentfunction* f = new argumentfunction(3);
+	List= Object_ptr(new poofunction(3,Object_ptr(new nativefunction(4, List_init_sub))));
 
-	argumentfunction* f1 = new argumentfunction(1);
-
-	f1->targ=Object_ptr(nativeif)(
+}
+Object_ptr Listc_init_sub(std::vector<Object_ptr>& v) {
+	Object_ptr p = getObject(v[2]);
+	int k=getnativevalue(p, int);
+	if (getnativevalue(getObject(v[0]), bool)>k&& k >= 0) {
+		return v[1](p);
+	}
+	return nullptr;
+}
+void Listc_init() {
+	Listc = Object_ptr(new poofunction(2,new nativefunction(3, Listc_init_sub)));
+}
+#else
+void List_init() {
+	argumentfunction* f = new argumentfunction(4);
+	f->targ=Object_ptr(nativeif)(
 		Object_ptr(nativeand)(
 			Object_ptr(f->arglst[2])(
-				Object_ptr(f1->arglst[0])
+				Object_ptr(f->arglst[3])
 				),
 			Object_ptr(nativege)(
-				Object_ptr(f1->arglst[0]),
+				Object_ptr(f->arglst[3]),
 				toObject(0)
 				)
 			),
 			Object_ptr(f->arglst[1])(
-				Object_ptr(f1->arglst[0])
+				Object_ptr(f->arglst[3])
 				),
 			nullptr
 			);
-
-	f->targ = Object_ptr(f1);
-
-	List= Object_ptr(f);
+	List= Object_ptr(new postfunction (3,Object_ptr(f)));
 }
-Object_ptr Listc;
 void Listc_init() {
 	argumentfunction* f = new argumentfunction(2);
-	f->targ = List(Object_ptr(f->arglst[0]), Object_ptr(f->arglst[1]), Object_ptr(nativegt)(Object_ptr(f->arglst[0])));
+	f->targ = List(f->arglst[0], f->arglst[1], inputArgument(nativegt,f->arglst[0]));
 	Listc= Object_ptr(f);
 }
-
-Object_ptr len_sub(std::vector<Object_ptr>&a)
-{
-	return toObject((int)getnativevalue(getObject(a[0]),std::vector<Object_ptr>).size());
-}
-
+#endif
 Object_ptr at_sub(std::vector<Object_ptr>& v) {
 	Object_ptr a0 = getObject(v[0]);
 	Object_ptr a1 = getObject(v[1]);
 	return getnativevalue(a0, std::vector<Object_ptr>)[getnativevalue(a1, int)];
-}
-Object_ptr dList() {
-	return dList_sub(Object_ptr(new nativeclass<std::vector<Object_ptr>>(std::vector<Object_ptr>())));
-};
-Object_ptr dList_sub(Object_ptr v1) {
-	return Listc(len_sub(std::vector<Object_ptr>(1, v1)), Object_ptr(new nativefunction(2, at_sub))(v1));
-}
-
-Object_ptr dList(std::vector<Object_ptr>& v){
-	return dList_sub(toObject(v));
 }

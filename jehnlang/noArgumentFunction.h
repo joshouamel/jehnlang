@@ -4,6 +4,7 @@ class noArgumentFunction :
 	public Object
 {
 public:
+	Object_ptr get;
 	virtual Object_ptr calc()=0;
 };
 class unCalcedData :
@@ -11,7 +12,9 @@ class unCalcedData :
 {
 protected:
 public:
-	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
+	inline unCalcedData() {}
+	inline unCalcedData(Object_ptr b, std::vector< Object_ptr>& l) :basefunction(b),lst(l){}
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 	Object_ptr basefunction;
 	std::vector< Object_ptr> lst;
 	Object_ptr calc();
@@ -19,12 +22,12 @@ public:
 class nativenoArgumentFunction :public noArgumentFunction {
 	Object_ptr(*calct)();
 public:
-	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 	nativenoArgumentFunction(Object_ptr(*calct)());
 	Object_ptr calc();
 };
 class referenceArgumentFunction :public noArgumentFunction {
-	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&);
+	Object_ptr clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&, std::vector<Object_ptr>&);
 };
 #include <stack>
 class stackedreferenceArgumentFunction :public referenceArgumentFunction {
@@ -34,7 +37,7 @@ public:
 };
 inline Object_ptr getObject(Object_ptr o) {
 	while (o&&dynamic_cast<noArgumentFunction*>(o.get())) {
-		o = dynamic_cast<noArgumentFunction*>(o.get())->calc();
+		o = dynamic_cast<noArgumentFunction*>(o.get())->get = dynamic_cast<noArgumentFunction*>(o.get())->calc();
 	}
 	return o;
 }

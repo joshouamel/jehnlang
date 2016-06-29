@@ -1,3 +1,30 @@
-﻿  main.cpp
-c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\object.h(40): warning C4018: '<': signed/unsigned mismatch
+﻿  noArgumentFunction.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(58): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(75): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\noargumentfunction.cpp(11): warning C4018: '<': signed/unsigned mismatch
+  nativefunction.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(58): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(75): warning C4018: '>': signed/unsigned mismatch
+  main.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(58): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(75): warning C4018: '>': signed/unsigned mismatch
+  func.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(58): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(75): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.cpp(52): warning C4018: '<': signed/unsigned mismatch
+  List.cpp
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(57): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(58): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(74): warning C4018: '<': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\func.h(75): warning C4018: '>': signed/unsigned mismatch
+c:\users\제현\documents\visual studio 2015\projects\jehnlang\jehnlang\list.cpp(21): warning C4804: '>': unsafe use of type 'bool' in operation
+  Generating Code...
   jehnlang.vcxproj -> C:\Users\제현\Documents\Visual Studio 2015\Projects\jehnlang\Debug\jehnlang.exe

@@ -36,7 +36,6 @@ inline Object_ptr operator|(Object_ptr a, Object_ptr b) {
 inline Object_ptr operator^(Object_ptr a, Object_ptr b) {
 	return ((Object_ptr)nativexor)(a, b);
 }
-#define getnativevalue(a,b) ((nativeclass<b>*)(a).get())->value
 #include <tuple>
 #include <vector>
 template<int... S>

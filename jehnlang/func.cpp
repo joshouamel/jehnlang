@@ -1,61 +1,25 @@
 #include "func.h"
 
-func::func(int argnum):argnum(argnum){}
-
-argumentfunction::argumentfunction(int i):func(i)
+Object_ptr argumentfunction::clone(std::vector<Object_ptr>&v1, std::vector<Object_ptr>&v2, std::vector<Object_ptr>&v3)
 {
-	for (int j = 0; j < i; j++)
-		arglst.push_back( Object_ptr(shared_ptr<forArgument>(new forArgument())));
-}
-
-Object_ptr argumentfunction::clone(std::vector<Object_ptr>&v1, std::vector<Object_ptr>&v2)
-{
-	if (&v1 == &arglst)
-		return nullptr;
-	Object_ptr t=targ->clone(v1,v2);
+	Object_ptr t=targ->clone(v1,v2,v3);
 	if (t) {
 		argumentfunction* a=new argumentfunction(argnum);
-		std::vector<Object_ptr> v3;
-		std::vector<Object_ptr> v4;
-		for (int i = 0; i < arglst.size();i++)v3.push_back(Object_ptr(arglst[i]));
-		for (int i = 0; i < arglst.size(); i++)v4.push_back(Object_ptr(a->arglst[i]));
-		a->targ = t->clone(v3, v4);
-		if (a->targ)
-			return Object_ptr(a);
-		a->targ = t;
+		a->targ = t->clone(arglst, a->arglst,v3);
+		if (!a->targ)
+			a->targ = t;
 		return Object_ptr(a);
 	}
 	return nullptr;
 }
 
-Object_ptr argumentfunction::arg(int i)
+
+
+Object_ptr argumentfunction::inputArgument(std::vector<Object_ptr>& v,Object_ptr this_ptr)
 {
-	return Object_ptr(arglst[i]);
+	return targ.clone(arglst, v,std::vector<Object_ptr>(1,this_ptr));
 }
 
-Object_ptr argumentfunction::inputArgument(std::vector<Object_ptr>& v)
-{
-	Object_ptr base = getObject(targ.clone(arglst, v));
-	return base;
-}
-
-Object_ptr func_ptr::inputArgument(std::vector<Object_ptr>& v)
-{
-	if (!this->get())
-		return nullptr;
-	if ((*this)->argnum < v.size()) return nullptr;
-	if ((*this)->argnum > v.size()) {
-		argumentfunction* f(new argumentfunction((*this)->argnum-v.size()));
-		shared_ptr<unCalcedData> u(new unCalcedData());
-		u->basefunction = Object_ptr(*this);
-		u->lst =v;
-		u->lst.insert(u->lst.end(), f->arglst.begin(), f->arglst.end());
-		f->targ = Object_ptr(u);
-		return func_ptr(shared_ptr<func>(f));
-	}
-	return (*this)->inputArgument(v);
-
-}
 /*
 argumentrequiredfunction::argumentrequiredfunction(func_ptr basefunction,std::vector<Object_ptr>& v):func(basefunction->arg-v.size()),lst(v),basefunction(basefunction){}
 
@@ -72,7 +36,77 @@ Object_ptr argumentrequiredfunction::inputArgument(std::vector<Object_ptr>&qlst)
 }
 */
 
-Object_ptr forArgument::clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&)
+Object_ptr forArgument::clone(std::vector<Object_ptr>&, std::vector<Object_ptr>&, std::vector<Object_ptr>&)
 {
 	return nullptr;
+}
+Object_ptr postfunction::clone(std::vector<Object_ptr>&v1, std::vector<Object_ptr>&v2, std::vector<Object_ptr>& v3)
+{
+	Object_ptr b;
+	if ((b = basefunction.clone(v1, v2, v3)) != basefunction)
+		return Object_ptr(new postfunction(argnum, b));
+	return nullptr;
+}
+
+Object_ptr postfunction::inputArgument(Object_ptr o, Object_ptr this_ptr)
+{
+	if (argnum == 1)
+		return ::inputArgument(basefunction, o);
+	return Object_ptr(new poofunction(argnum - 1, basefunction, o));
+}
+
+Object_ptr postfunction::inputArgument(std::vector<Object_ptr>& v, Object_ptr this_ptr)
+{
+	if (argnum == v.size())
+		return ::inputArgument(basefunction, v);
+	return Object_ptr(new poofunction(argnum - 1, basefunction, v));
+}
+
+Object_ptr poofunction::clone(std::vector<Object_ptr>&v1, std::vector<Object_ptr>&v2, std::vector<Object_ptr>& v3)
+{
+	bool check = false;
+	std::vector<Object_ptr> v;
+	Object_ptr b;
+	if ((b = basefunction.clone(v1, v2,v3)) != basefunction)
+		check = true;
+	poofunction* u = new poofunction(argnum,b );
+	for (int i = 0; i < lst.size(); i++) {
+		Object_ptr t = lst[i].clone(v1, v2,v3);
+		u->lst.push_back(t);
+		if (t != lst[i])
+			check = true;
+	}
+	if (check)
+		return Object_ptr(u);
+	delete u;
+	return nullptr;
+}
+
+Object_ptr poofunction::inputArgument(Object_ptr o, Object_ptr this_ptr)
+{
+	if (argnum == 1) {
+		std::vector< Object_ptr> a = lst;
+		a.push_back(o);
+		return Object_ptr(new unCalcedData(basefunction, a));
+	}
+	poofunction* p=new poofunction(argnum - 1, basefunction, lst);
+	p->lst.push_back(o);
+	return Object_ptr(p);
+}
+
+Object_ptr poofunction::inputArgument(std::vector<Object_ptr>& v,Object_ptr this_ptr)
+{
+	if (argnum == v.size()) {
+		std::vector< Object_ptr> a = lst;
+		a.insert(a.end(), v.begin(), v.end());
+		return Object_ptr(new unCalcedData(basefunction, a));
+	}
+	poofunction* p = new poofunction(argnum - 1, basefunction, lst);
+	p->lst.insert(p->lst.end(), v.begin(), v.end());
+	return Object_ptr(p);
+}
+
+Object_ptr func::inputArgument(Object_ptr o, Object_ptr this_ptr)
+{
+	return inputArgument(std::vector<Object_ptr>(1, o),this_ptr);
 }

@@ -46,4 +46,5 @@ int main() {
 		cout << fibb_c(i) << endl;
 	}
 	printObject(fibb(toObject(10)));
+
 }
