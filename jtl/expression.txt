@@ -1,26 +1,26 @@
-¹İÈ¯Å¸ÀÔÀÌ ÀÖ´Â°æ¿ì
+ë°˜í™˜íƒ€ì…ì´ ìˆëŠ”ê²½ìš°
 func1()->int{
 state;
 }
-¾ø´Â°æ¿ì ¸®ÅÏÀ¸·Î Ãß·Ğ
+ì—†ëŠ”ê²½ìš° ë¦¬í„´ìœ¼ë¡œ ì¶”ë¡ 
 func2(){
 state;
 }
-state°¡ ¾ø°í expressionÀÏ °æ¿ì
+stateê°€ ì—†ê³  expressionì¼ ê²½ìš°
 func3()=>expression;
 
-absflag¸¦ °¡Á®¿Ã ¶§
+absflagë¥¼ ê°€ì ¸ì˜¬ ë•Œ
 var a=func4();
-ÇØ´ç ÇÔ¼öÀÇ absflag¸¦ °¡Á®¿È
+í•´ë‹¹ í•¨ìˆ˜ì˜ absflagë¥¼ ê°€ì ¸ì˜´
 
-tuple assignÀÏ ¶§
+tuple assignì¼ ë•Œ
 (a,b,_)=(c,d,e);
-¿ŞÂÊ¿¡´Â tuple expressionÀÌ°í ¿À¸¥ÂÊÀº tuple
+ì™¼ìª½ì—ëŠ” tuple expressionì´ê³  ì˜¤ë¥¸ìª½ì€ tuple
 
-tuple returnÀÏ ¶§
+tuple returnì¼ ë•Œ
 (_,a,return,b,_)=c;
 
-±×³É return ÀÏ ¶§
+ê·¸ëƒ¥ return ì¼ ë•Œ
 return a;
 
 array
@@ -29,4 +29,11 @@ array
 
 2D array
 [][]int a=[]int[[1,2]int,[3,4]int]
-[][]int b=[5][7]int
+[][]int b=[5][7]int4
+
+integer range
+[0~17]
+
+array slice
+a[3~5]=b[7~28]
+
