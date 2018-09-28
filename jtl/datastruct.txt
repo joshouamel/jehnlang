@@ -1,0 +1,16 @@
+function table
+name, function
+
+function
+rettype
+argstype
+code
+absflag
+
+var
+vartype
+name
+absflag
+
+vartype
+function tuple tupledtype objecttype primitive type consttype arraytype

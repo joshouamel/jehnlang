@@ -1,0 +1,32 @@
+반환타입이 있는경우
+func1()->int{
+state;
+}
+없는경우 리턴으로 추론
+func2(){
+state;
+}
+state가 없고 expression일 경우
+func3()=>expression;
+
+absflag를 가져올 때
+var a=func4();
+해당 함수의 absflag를 가져옴
+
+tuple assign일 때
+(a,b,_)=(c,d,e);
+왼쪽에는 tuple expression이고 오른쪽은 tuple
+
+tuple return일 때
+(_,a,return,b,_)=c;
+
+그냥 return 일 때
+return a;
+
+array
+[]int a=int[1,2,3,4]
+[]int b=[4]int
+
+2D array
+[][]int a=[]int[[1,2]int,[3,4]int]
+[][]int b=[5][7]int
